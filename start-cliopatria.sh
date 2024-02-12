@@ -2,7 +2,7 @@
 #
 # Start script for the PlWeb docker
 #
-# This script is started in /srv/plweb.
+# This script is started in /srv/cliopatria.
 
 start=--no-fork
 ssl=
@@ -14,25 +14,7 @@ config_run=no
 date "+%s" > /var/run/epoch
 
 usage()
-{ echo "Usage: docker run [docker options] swish [swish options]"
-  echo "swish options:"
-  echo "  --help                 Display this message"
-  echo "  --bash		 Just run bash in the container"
-  echo "  --auth=type            Configure authentication>:"
-  echo "         always          Force HTTP authentication"
-  echo "         social          Allow HTTP and oauth2 authentication"
-  echo "         anonymous       No authentication"
-  echo "  --add-user		 Add a new user"
-  echo "  --http		 Create an HTTP server"
-  echo "  --https		 Create an HTTPS server"
-  echo "  --CN=host		 Hostname for certificate"
-  echo "  --O=organization	 Organization for certificate"
-  echo "  --C=country		 Country for certificate"
-  echo "  --run			 Start SWISH after config options"
-  echo "  --list-config		 List configuration files"
-  echo "  --add-config file ...	 Add a configuration file"
-  echo ""
-  echo "--add-config should be the last option if used."
+{ echo "Usage: docker run [docker options] cliopatria [cliopatria options]"
 }
 
 # `mkuser file user` creates user with the uid and gid of file.
@@ -48,9 +30,9 @@ mkuser()
 # If there is a data directory, reuse it and set our user to be the
 # native user of this directory.
 
-if [ -d /srv/plweb/data ]; then
-  mkuser /srv/plweb/data plweb
-  udaemon=plweb
+if [ -d /srv/cliopatria/data ]; then
+  mkuser /srv/cliopatria/data cliopatria
+  udaemon=cliopatria
 else
   mkdir /srv/plweb/data
   chown $udaemon.$udaemon /srv/plweb/data
@@ -59,7 +41,6 @@ fi
 # Allow the daemon to get the git version
 mkdir -p /home/$udaemon
 chown $udaemon /home/$udaemon
-# su -c "git config --global --add safe.directory /swish" $udaemon
 
 if [ -t 0 ] ; then
   start=--interactive
@@ -115,13 +96,13 @@ trap "stop TERM" SIGTERM
 trap "stop QUIT" SIGQUIT
 trap "hangup" SIGHUP
 
-export HOME=/home/$udaemon 
+export HOME=/home/$udaemon
 
 git config --global --add safe.directory '*'
-git config --global user.email "wiki@swi-prolog.org"
-git config --global user.name "Wiki editor"
+git config --global user.email "cliopatria@swi-prolog.org"
+git config --global user.name "ClioPatria server"
 
-swipl ${PLWEB_HOME}/daemon.pl --port=3400 --user=$udaemon $start &
+./run.pl
 child_pid=$!
 
 stat=129

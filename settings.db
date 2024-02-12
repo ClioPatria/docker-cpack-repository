@@ -1,0 +1,12 @@
+﻿/*  Saved settings
+    Date: Mon Jul  6 15:54:12 2015
+*/
+
+
+%	IP addresses from which remotes are allowed to connect
+setting(pengines:allow_from, [*]).
+
+%	Keep information to support source-level debugging
+setting(swish:debug_info, true).
+
+setting(cpack:mirrors, 'data/cpack-mirrors').
