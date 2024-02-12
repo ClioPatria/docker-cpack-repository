@@ -9,4 +9,8 @@ setting(pengines:allow_from, [*]).
 %	Keep information to support source-level debugging
 setting(swish:debug_info, true).
 
+%	Settings for Docker deployment
 setting(cpack:mirrors, 'data/cpack-mirrors').
+setting(cliopatria:persistent_store, 'data/RDF-store').
+setting(http:logfile, 'data/log/httpd.log').
+setting(http:public_port, 443).

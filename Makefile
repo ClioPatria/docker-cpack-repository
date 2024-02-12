@@ -1,9 +1,9 @@
 RESTART=--restart unless-stopped
-VOLUME=$(shell cd .. && pwd)/data
-PORT=3400
+VOLUME=$(shell pwd)/data
+PORT=3020
 
-PUBLISH=--publish=${PORT}:3400 --publish=3420:2022
-DOPTS=${PUBLISH} -v ${VOLUME}:/srv/plweb/data
+PUBLISH=--publish=${PORT}:3020
+DOPTS=${PUBLISH} -v ${VOLUME}:/srv/cliopatria/data
 IMG=cliopatria
 SRV=cliopatria
 
@@ -20,9 +20,12 @@ image::
 run:
 	docker run --name=$(SRV) -d ${RESTART} ${DOPTS} $(IMG)
 
-restart:
+stop:
 	docker stop $(SRV)
-	docker rm $(SRV)
+
+restart:
+	-docker stop $(SRV)
+	-docker rm $(SRV)
 	make run
 
 bash:
