@@ -103,7 +103,7 @@ git config --global user.email "cliopatria@swi-prolog.org"
 git config --global user.name "ClioPatria server"
 
 cd cliopatria
-./run.pl
+./daemon.pl --user=$udaemon --port=3020 --no-fork &
 child_pid=$!
 
 stat=129
