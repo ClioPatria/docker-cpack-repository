@@ -21,12 +21,12 @@ RUN	cd /srv/cliopatria && \
 # Running
 
 copy health.sh health.sh
-HEALTHCHECK --interval=30s --timeout=2m --start-period=1m CMD /health.sh
+#HEALTHCHECK --interval=30s --timeout=2m --start-period=1m CMD /health.sh
 
 COPY start-cliopatria.sh /srv/start-cliopatria.sh
 
-ENV PLWEB_DATA /srv/plweb/data
-ENV PLWEB_HOME /srv/plweb
+ENV CLIOPATRIA_DATA /srv/cliopatria/data
+ENV CLIOPATRIA_HOME /srv/cliopatria
 VOLUME ${PLWEB_DATA}
 WORKDIR ${PLWEB_HOME}
 

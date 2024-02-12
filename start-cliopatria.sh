@@ -102,6 +102,7 @@ git config --global --add safe.directory '*'
 git config --global user.email "cliopatria@swi-prolog.org"
 git config --global user.name "ClioPatria server"
 
+cd cliopatria
 ./run.pl
 child_pid=$!
 
