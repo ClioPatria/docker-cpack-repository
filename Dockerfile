@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	imagemagick \
 	graphviz \
 	locales \
+	curl \
 	git
 
 RUN     sed -i -e 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -12,7 +13,7 @@ ENV     LC_ALL en_GB.UTF-8
 ENV     LANG en_GB.UTF-8
 ENV     LANGUAGE en_GB:en
 
-ENV	CLIOPATRIA_UPDATE 1
+ENV	CLIOPATRIA_UPDATE 2
 RUN     mkdir -p /srv && cd /srv && \
 	git clone https://github.com/ClioPatria/ClioPatria.git
 RUN	mkdir -p /srv/cliopatria && cd /srv/cliopatria && \
@@ -37,7 +38,7 @@ RUN	cd /srv/cliopatria/cpack/swish && \
 # Running
 
 copy health.sh health.sh
-#HEALTHCHECK --interval=30s --timeout=2m --start-period=1m CMD /health.sh
+HEALTHCHECK --interval=30s --timeout=2m --start-period=1m CMD /health.sh
 
 COPY start-cliopatria.sh /srv/start-cliopatria.sh
 

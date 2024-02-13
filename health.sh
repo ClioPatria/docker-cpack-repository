@@ -7,7 +7,7 @@ check()
      auth="$(cat health.auth)"
   fi
   curl --fail -s --retry 3 --max-time 5 \
-       http://localhost:3020/
+       http://localhost:3020/health
   return $?
 }
 
