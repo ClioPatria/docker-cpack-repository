@@ -1,4 +1,4 @@
-FROM swipl:stable
+FROM swipl
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	imagemagick \
@@ -13,9 +13,10 @@ ENV     LC_ALL en_GB.UTF-8
 ENV     LANG en_GB.UTF-8
 ENV     LANGUAGE en_GB:en
 
-ENV	CLIOPATRIA_UPDATE 2
+ENV	CLIOPATRIA_VERSION a0b30a5e5ca7cd9adbea0cba98faca097e67600e
 RUN     mkdir -p /srv && cd /srv && \
-	git clone https://github.com/ClioPatria/ClioPatria.git
+	git clone https://github.com/ClioPatria/ClioPatria.git && \
+	git checkout $CLIOPATRIA_VERSION
 RUN	mkdir -p /srv/cliopatria && cd /srv/cliopatria && \
 	../ClioPatria/configure
 COPY	users.db /srv/cliopatria/users.db
