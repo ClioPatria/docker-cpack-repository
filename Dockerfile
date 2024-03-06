@@ -16,6 +16,7 @@ ENV     LANGUAGE en_GB:en
 ENV	CLIOPATRIA_VERSION a0b30a5e5ca7cd9adbea0cba98faca097e67600e
 RUN     mkdir -p /srv && cd /srv && \
 	git clone https://github.com/ClioPatria/ClioPatria.git && \
+	cd ClioPatria && \
 	git checkout $CLIOPATRIA_VERSION
 RUN	mkdir -p /srv/cliopatria && cd /srv/cliopatria && \
 	../ClioPatria/configure
